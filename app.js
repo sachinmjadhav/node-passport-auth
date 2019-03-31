@@ -1,4 +1,5 @@
 const express = require("express");
+const serverless = require('serverless-http');
 const expressLayouts = require("express-ejs-layouts");
 const mongoose = require("mongoose");
 const flash = require("connect-flash");
@@ -54,9 +55,17 @@ app.use((req, res, next) => {
 });
 
 // Routes
+const router = express.Router();
+router.get('/', require('./routes/index'))
+router.get('/users', require('./routes/users'))
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
+
+app.use('/.netlify/functions/server', router);  // path must route to lambda
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, console.log(`Server started on PORT ${PORT}`));
+
+module.exports = app;
+module.exports.handler = serverless(app);
