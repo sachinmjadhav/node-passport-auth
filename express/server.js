@@ -9,10 +9,10 @@ const passport = require("passport");
 const app = express();
 
 // Passport config
-require("./config/passport")(passport);
+require("../config/passport")(passport);
 
 // DB Config
-const db = require("./config/keys").MongoURI;
+const db = require("../config/keys").MongoURI;
 
 // Connect to Mongo
 mongoose
@@ -56,16 +56,14 @@ app.use((req, res, next) => {
 
 // Routes
 const router = express.Router();
-router.get('/', require('./routes/index'))
-router.get('/users', require('./routes/users'))
-app.use("/", require("./routes/index"));
-app.use("/users", require("./routes/users"));
+router.get('/', require('../routes/index'))
+router.get('/users', require('../routes/users'))
+app.use("/", require("../routes/index"));
+app.use("/users", require("../routes/users"));
 
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 
-const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`Server started on PORT ${PORT}`));
 
 module.exports = app;
 module.exports.handler = serverless(app);

@@ -2,13 +2,16 @@
   "name": "node-passport-auth",
   "version": "1.0.0",
   "description": "Authentication app",
-  "main": "functions/app.js",
+  "main": "functions/server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node server-local.js",
+    "dev": "nodemon server-local.js",
     "build": "netlify-lambda build express"
   },
-  "keywords": [],
+  "keywords": [
+    "netlify",
+    "express.js"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
